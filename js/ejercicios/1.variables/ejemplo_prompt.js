@@ -1,4 +1,4 @@
-const preguntar = require('./prompt');
+import preguntar from ('./prompt');
 
 preguntar('¿Cual es tu nombre? > ')
   .then((nombre) => {
