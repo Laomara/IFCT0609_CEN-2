@@ -4,4 +4,8 @@
 =======
 node_modules
 package-lock.json
+<<<<<<< HEAD
 >>>>>>> a02490b2ee8fafd645816b982fb3df614becd1a1
+=======
+temp.sql
+>>>>>>> b636d8911152d80c3a55e9241caed77cbb4936ba
