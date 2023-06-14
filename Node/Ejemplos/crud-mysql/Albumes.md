@@ -1,19 +1,17 @@
 ## Albumes
   
   - id: int
-  - titulo: varchar
-  - formato: char
-  - path: varchar
+  - titulo: string
+  - descripcion: string
   - artistaId: int, id para identificar el artista en otra tabla
-  - albumId: string
-  - genero: varchar, path de la imagen de la portada
-  - filename: varchar
+  - fecha: string
+  - portada: string, path de la imagen de la portada
 
 ```javascript
 {
   id: 1,
   titulo: "Título del álbum",
-  formato: "mp3",
+  descripcion: "Descripción del álbum",
   artistaId: 1,
   fecha: "2020-01-01",
   portada: "media/albumes/portada.jpg"
