@@ -52,7 +52,11 @@ http.createServer(function (req, res) {
 
   // Método GET 
   // GET all y GET by id
+<<<<<<< HEAD
+  if (url.startsWith("/todos") && method == "GET") {
+=======
   if (esGetUrl && method == "GET") {
+>>>>>>> 1368d9f77c383b8ce1854d646f907b4eb50fdc8c
     // Usamos split para conseguir el id de la URL:
     let id = url.split("/")[2]; // /todos/1 -> id = 1
     let esIdValido = Todo.validarId(id)
@@ -212,6 +216,6 @@ http.createServer(function (req, res) {
     console.error(`Error 404. Ruta ${url} o método ${req.method} incorrecto. Envia la petición a /todos`)
     res.end(`Error 404. Ruta ${url} o método ${req.method} incorrecto. Envia la petición a /todos`);
   }
-}).listen(8080); // Se utiliza el puerto 8080 para el servidor
+}).listen(8080, () => {console.log("http://localhost:8080/todos")}); // Se utiliza el puerto 8080 para el servidor
                  // localhost:8080/todos -> http://localhost:8080/todos
                  // localhost -> 127.0.0.1
