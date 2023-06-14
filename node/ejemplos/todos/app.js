@@ -52,11 +52,7 @@ http.createServer(function (req, res) {
 
   // Método GET 
   // GET all y GET by id
-<<<<<<< HEAD
   if (url.startsWith("/todos") && method == "GET") {
-=======
-  if (esGetUrl && method == "GET") {
->>>>>>> 1368d9f77c383b8ce1854d646f907b4eb50fdc8c
     // Usamos split para conseguir el id de la URL:
     let id = url.split("/")[2]; // /todos/1 -> id = 1
     let esIdValido = Todo.validarId(id)
