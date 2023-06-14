@@ -3,6 +3,7 @@ class Todo {
   static todos = [];        // Array de todos que se actualiza en la creación de cada objeto Todo
   static MAX_TITULO = 255;
   static MAX_DESCRIPCION = 1000;
+  static MAX_TODOS = 5;
   static KEYS_VALIDOS = ["id", "titulo", "descripcion", "completado"];
   constructor(id_ = ++Todo.contadorTodos, titulo_ = "", descripcion_ = "", completado_ = false) {
     this.id = id_;
@@ -26,17 +27,20 @@ class Todo {
     ]
     for (let i = 0; i < todos.length; i++) {
       let todo = todos[i];
-      new Todo(
-        undefined,
-        todo.titulo,
-        todo.descripcion,
-        todo.completado
-      )
+      if (Todo.todos.length < Todo.MAX_TODOS) {
+        new Todo(
+          undefined,
+          todo.titulo,
+          todo.descripcion,
+          todo.completado
+        )
+      }
     }
   }
   // Métodos para validar los campos de un Todo
 
-  // GET
+  /***** GET *****/
+
   /**
    * Devuelve el array actual de todos
    * @returns {Array} todos
@@ -44,7 +48,12 @@ class Todo {
   static getAllTodos() {
     return Todo.todos;
   }
-  static getTodo(id) {
+  /**
+   * Método para obtener un todo por su id
+   * @param {Number} id 
+   * @returns {Object} todo o {null} en caso de no encontrarlo
+   */
+  static getTodoPorId(id) {
     if (!id) {
       throw new Error("No se ha proporcionado un id")
     }
@@ -62,6 +71,53 @@ class Todo {
     }
     return null; // Si no encuentra el todo con ese id
     // Otra opción sería arrojar error
+  }
+
+  /**
+   * Método para buscar un todo por campo y valor
+   * @param {String} campo Tiene que ser un campo válido de un Todo -> KEYS_VALIDOS
+   * @param {String|Boolean} valor El valor que buscamos en el campo
+   * @returns {Array} Array de todos que cumplen la condición
+   */
+  static getTodosPorCampo(campo, valor) {
+    // Comprobamos que el campo es válido
+    // Comprobamos que el valor es válido
+    // Recorremos el array de todos y comprobamos si el campo y el valor coinciden
+    // Si coinciden, lo añadimos a un array de resultados
+    // Devolvemos el array de resultados
+    return null;
+  }
+
+  /***** POST *****/
+
+  /***** PUT *****/
+  /**
+   * Método para editar el todo si existe, si no existe no hace nada
+   * @param {Number} id es el id del todo
+   * @param {Object} json Objeto que tiene los cambios
+   * @returns {void} No tiene retorno (undefined)
+   */
+  static editarTodoPorId(id, json) {
+    let todo = Todo.getTodoPorId(id);
+    if (todo) {
+      for (const key in json) {
+        todo[key] = json[key];
+      }
+      // Guardamos el todo en el array de todos
+      let index = Todo.getTodoIndex(id);
+      Todo.todos[index] = todo;
+    }
+  }
+
+  /***** DELETE *****/
+  /**
+   * Método para borrar un todo del array de todos
+   * @param {Number} id es el id del todo a borrar
+   * @returns {void} No tiene retorno (undefined)
+   */
+  static borrarTodoPorId(id) {
+    let index = Todo.getTodoIndex(id); // Obtenemos el índice del todo con el id
+    Todo.todos.splice(index, 1) // Eliminamos el todo con el id y devolvemos 200 -> OK
   }
   // Validaciones
   /**
