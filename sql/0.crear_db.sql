@@ -10,7 +10,7 @@ USE pruebas;
  Si ya tienes una base de datos, sólo copia lo siguiente
  */
 
-CREATE TABLE IF NOT EXISTS 
+CREATE TABLE
     tblUsuarios (
         idx INT PRIMARY KEY AUTO_INCREMENT,
         usuario VARCHAR(20),
@@ -25,9 +25,6 @@ CREATE TABLE IF NOT EXISTS
         activo BOOLEAN
     );
 
--- Reseteo de la tabla
-
-TRUNCATE TABLE tblUsuarios;
 INSERT INTO tblUsuarios 
 VALUES (
         '1',
