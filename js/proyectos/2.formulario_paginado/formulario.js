@@ -3,14 +3,14 @@ let btnSiguiente = document.getElementById('siguiente');
 let btnEnviar = document.getElementById('enviar');
 
 /* Validación de campos */
-// Todos los inputs del form:
+// Todos los imputs del form:
 let inputs = document.querySelectorAll('input');
 let validaciones = {
   nombre: false,
   username: false,
   password: false,
   email: false,
-  address: false,
+  adress: false,
   city: false,
   country: false,
   zip: false,
@@ -18,28 +18,27 @@ let validaciones = {
   web: false,
   linkedin: false,
   github: false,
-  cv: false,
+  cv: false, 
 }
+
 // Array de funciones de validación de campos:
 let validadores = [
   validarNombre,
-  validarUsername,
+  validarUserName,
   validarPassword,
   validarEmail,
   validarDireccion,
   validarCiudad,
-  validarPais,
   validarCodigoPostal,
   validarTelefono,
-  validarURL, 
-  validarURL, 
-  validarURL, 
-  validarURL, 
+  validarURL,
+  validarURL,
+  validarURL,
 ]
 
 // Bucle para añadir eventListeners a todos los inputs usando las funciones de validación
-for(let i = 0; i < inputs.length; i++){
-  let input = inputs[i];
+for(let i = 0; i < validadores.length; i++){
+  let input = inputs [i];
   input.addEventListener('change', (e) => {
     validarCampo(input, validadores[i]);
     ocultarMostrarBtnEnviar();
@@ -54,6 +53,7 @@ btnAnterior.addEventListener('click', (e) => {
   if(seccionActiva > 1){
     cambiarSeccion(seccionActiva-1)
     ocultarPrevNext();
+    /*console.log("siguiente", seccionActiva-1);*/
   }
 });
 btnSiguiente.addEventListener('click', (e) => { 
@@ -64,16 +64,17 @@ btnSiguiente.addEventListener('click', (e) => {
   if(seccionActiva < 3){
     cambiarSeccion(seccionActiva+1)
     ocultarPrevNext();
+    /*console.log("siguiente", seccionActiva+1);*/
   }
 });
 btnEnviar.addEventListener('click', (e) => { 
   e.preventDefault();
   let valoresRecibidos = {};
   inputs.forEach((input) => {
-    valoresRecibidos[input.name] = input.value; // Usamos el atributo name para guardar el dato en el servidor, db, etc.
+    valoresRecibidos[input.name] = input.value; // Usamos el atributo name para guardar el dato en el servidor, db, etc..
   })
-  console.table(valoresRecibidos); 
-  alert("Formulario enviado correctamente");
+  console.table(valoresRecibidos);
+  alert("Formulario enviado correctamente"); 
 });
 
 // Funciones
@@ -105,7 +106,8 @@ function cambiarSeccion(nuevaSeccion) {
       seccion.classList.remove('active');
     }
   });
-  let circulos = document.querySelectorAll("#progreso div"); // 3 divs
+
+let circulos = document.querySelectorAll("#progreso div"); // 3 divs
     circulos.forEach((circulo, index) => {
       console.log(index, nuevaSeccion, index <= nuevaSeccion-1)
     if(index <= nuevaSeccion-1) {
@@ -132,65 +134,65 @@ function ocultarPrevNext(){
 }
 
 /**
- * Oculta o muestra el botón siguiente según la sección actual
- * Se llama cada vez que se cambia el contenido de un input en la sección
+ * Oculta o muestra el botón siguiente según la sección actual 
+ * Se llama cada vez que se cambia
  * No tiene params ni retorna nada
  */
 function ocultarMostrarBtnSiguiente(){
   let camposCorrectos = 0;
-  let arr = Object.values(validaciones);
+  let arr = Object.values (validaciones);
   arr.forEach((validacion) => {
     camposCorrectos += validacion;
   })
-  // TODO: cambiar esto para que compruebe en cada sección si los 4 son correctos
-  // o al final si TODOS los campos son correctos; creo que así funciona para sección 1 y 2
-  // con una pequeña modificación
-  let seccionActiva = seccionActual();
-  // Si la sección actual es 1 -> son 4 campos necesarios para pasar
-  let camposNecesarios = 0;
-  if(seccionActiva == 1){
-    camposNecesarios = 4;
-  }else if(seccionActiva == 2){
-    camposNecesarios = 9;
-  }else{
-    camposNecesarios = 13;
-  }
-  // Si la sección actual es 2 -> son 9 campos necesarios para pasar
-  if(camposCorrectos == camposNecesarios){
-    btnSiguiente.classList.remove('disabled');
-  }else{
-    btnSiguiente.classList.add('disabled');
-  }
+}
+
+// TODO: cambiar esto para que compruebe en cada seccion si los 4 son correctos
+// o al final si TODOS los campos son correctos; creo que así funciona para seccion 1 y 2
+// con una pequeña modificacion
+let seccionActiva = seccionActual();
+// Si la seccion actual es 1 -> son 4 campos necesarios para pasar
+let camposNecesarios = 0;
+if(seccionActiva == 1){
+  camposNecesarios = 4;
+}else if(seccionActiva == 2){
+  camposNecesarios = 9;
+}else{
+  camposNecesarios = 13;
+}
+// Si la sección actual es 2 -> son 9 campos necesarios para pasar
+if(camposCorrectos == camposNecesarios){
+  btnSiguiente.classList.remove('disabled');
+}else{
+  btnSiguiente.classList.add('disabled');
 }
 
 function ocultarMostrarBtnEnviar(){
-  let camposCorrectos = 0;
-  let arr = Object.values(validaciones);
-  arr.forEach((validacion) => {
-    camposCorrectos += validacion;
-  })
-  let values = Object.values(validaciones); // arr
-  if(camposCorrectos == values.length){
-    btnEnviar.classList.remove('disabled');
-  }else{
-    btnEnviar.classList.add('disabled');
-  }
-  // TODO: revisar que no deje pasar de sección 2 a 3 si no hay 8 true en validaciones
+let camposCorrectos = 0;
+let arr = Object.values(validaciones);
+arr.forEach((validacion) => {
+  camposCorrectos += validacion;
+})
+let values = Object.values(validaciones); // arr
+if(camposCorrectos == values.length){
+  btnEnviar.classList.remove('disabled');
+}else{
+  btnEnviar.classList.add('disabled');
+}
 }
 
-// Validaciones
+//Validaciones
 function validarCampo(input, validacion, errorDiv = "", successDiv = ""){
-  // Si no me indican los divs de error y success, los busco por defecto usando los ids
+  //Si no me indican los divs de error y success, los busco por defecto usando los ids
   let prefijo = input.id.split('-')[0];
   if(errorDiv == ""){
     errorDiv = document.getElementById(prefijo+'-error');
-  }
-  if(successDiv == ""){
-    successDiv = document.getElementById(prefijo+'-success');
-  }
-  let valorActual = input.value;
-  let esCampoValido = false; // esta validación cambiaria en cada campo
-  // Cambiamos la llamada a la función de validación según el campo
+}
+if(successDiv == ""){
+  successDiv = document.getElementById(prefijo+'-success');
+}
+let valorActual = input.value;
+let esCampoValido = validacion(valorActual); // esta validación cambiaría en cada cambio
+// Cambiamos la llamada a la función de validación según el campo
   // en el caso de URL necesitamos dos params en algunos casos
   switch(input.id.split("-")[0]){
     case 'linkedin':
@@ -200,37 +202,37 @@ function validarCampo(input, validacion, errorDiv = "", successDiv = ""){
       esCampoValido = validacion(valorActual, "github");
       break;
     default:
-      esCampoValido = validacion(valorActual);
-  }
-  if(!esCampoValido && valorActual.length > 0){
-    successDiv.style.display = 'none';
-    errorDiv.style.display = 'block';
-    validaciones[input.id.split("-")[0]] = false;
-  }else if(valorActual.length > 0){
-    errorDiv.style.display = 'none';
-    successDiv.style.display = 'block';
-    // Actualizamos el primer elemento del array de validaciones
-    validaciones[input.id.split("-")[0]] = true;
-  }
-  ocultarMostrarBtnSiguiente();
+      esCampoValido = false;// esta validacion cambiaria en cada campo
+  } 
+if(!esCampoValido && valorActual.lenght > 0){
+  successDiv.style.display ='none';
+  errorDiv.style;display = 'block';
+  validaciones[input.id] = false;
+}else if(valorActual.length > 0){
+  errorDiv.style.display = 'none';
+  successDiv.style.display ='block';
+  //Actualizamos el primer elemento del array de validaciones
+  validaciones[input.id] = true;
+ }
+ ocultarMostrarBtnSiguiente();
 }
 /**
- * @param {String} valorActual 
- * @returns {Boolean} true si el nombre es válido, false si no lo es
+ * @param {String} valorActual
+ * @returns {Boolean}true si el nombre es valido, false si no lo es
  */
 function validarNombre(valorActual){
   return valorActual.length >= 3;
 }
 /**
- * @param {String} valorActual 
- * @returns {Boolean} true si el nombre es válido, false si no lo es
+ * @param {String} valorActual
+ * @returns {Boolean} true si el nombre es valido, false si no lo es
  */
-function validarUsername(valorActual){
-  if(valorActual.includes(' ')){
+function validarUserName(valorActual){
+  if(valorActual.includes('')){
     return false
   }
-  // Valida a-z, A-Z, 0-9, _ . -
-  // Comprueba que existan SOLO esos caracteres
+  // valida a-z, A-Z, 0-9,_ . -
+  //Comprueba que existan SOLO esos caracteres
   let regex = /^[a-zA-Z0-9_.-]*$/;
   let longitudEnRango = valorActual.length >= 5 && valorActual.length <= 15;
   return regex.test(valorActual) && longitudEnRango;
@@ -318,6 +320,7 @@ function validarURL(valorActual, dominio = ""){
   let tieneDominio = valorActual.includes(dominio);
   return regex.test(valorActual) && tieneDominio;
 }
+
 
 const ciudades = [
   "AFGANISTÁN",
@@ -516,3 +519,21 @@ const ciudades = [
   "ZAMBIA",
   "ZIMBABUE",
 ]
+
+
+
+
+
+
+
+
+
+// 1. Validar los campos del formulario -> por secciones y "todo"
+// 2. Presentar mensajes de error según validaciones
+// 3. Habilitar botón enviar si todo es correcto
+// 4. Enviar formulario a un servidor -> como no podemos hacer esto ahora, lo simularemos: 
+  // con un console.log
+  // con un alert
+  // con un mensaje en el DOM -> JSON -> {nombre: "Juan", apellido: "Perez", ...}
+    // paso intermedio: la contraseña no se envía, se pasa a un hash primero
+  // O podemos colocar una pantalla final (HTML) donde el usuario vea sus datos entregados

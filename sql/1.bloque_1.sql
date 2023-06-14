@@ -44,41 +44,16 @@ WHERE saldo = 0 OR activo = 0;
 
 SELECT usuario FROM `tblUsuarios` WHERE nivel > 0;
 
--- 6. Listar los números de teléfono con saldo menor o igual a 300
+-- Listar los números de teléfono con saldo menor o igual a 300
 
-SELECT telefono FROM tblUsuarios WHERE saldo <= 300;
+-- Calcular la suma de los saldos de los usuarios de la compañia telefónica NEXTEL
 
--- 7. Calcular la suma de los saldos de los usuarios de la compañia telefónica NEXTEL
+-- Contar el número de usuarios por compañía telefónica
 
-SELECT SUM(saldo) FROM tblUsuarios WHERE compañia = 'NEXTEL';
+-- Contar el número de usuarios por nivel
 
--- Solo hay un usuario y tiene saldo 150 -> el resultado es 150
+-- Listar el login de los usuarios con nivel 2
 
--- 8. Contar el número de usuarios por compañía telefónica
+-- Mostrar el email de los usuarios que usan gmail
 
--- GROUP BY aplica la selección a cada uno de las filas que encuentra en la categoría, en este caso, "compañia"
-
-SELECT compañia, COUNT(*) FROM tblUsuarios GROUP BY compañia;
-
--- 9. Contar el número de usuarios por nivel
-
--- GROUP BY aplica la selección a cada uno de las filas que encuentra en la categoría, en este caso, "nivel"
-
-SELECT nivel, COUNT(*) FROM tblUsuarios GROUP BY nivel;
-
--- 10. Listar el login de los usuarios con nivel 2, login es usuario o email
-
-SELECT usuario, email FROM tblUsuarios WHERE nivel = 2;
-
--- 11. Mostrar el email de los usuarios que usan gmail
-
-SELECT email FROM tblUsuarios WHERE email LIKE '%@gmail.com';
-
--- % es un comodín (wildcard) que representa ningún caracter, un caracter o más
-
--- 12. Listar nombre y teléfono de los usuarios con teléfono LG, SAMSUNG o MOTOROLA
-
-SELECT nombre, telefono
-FROM tblUsuarios
-WHERE
-    marca IN ('LG', 'SAMSUNG', 'MOTOROLA');
+-- Listar nombre y teléfono de los usuarios con teléfono LG, SAMSUNG o MOTOROLA

@@ -23,4 +23,3 @@ for(let i = 1; i < 4; i++){
 }
 let promedio = suma / 3
 console.log("El promedio es:", promedio)
-
