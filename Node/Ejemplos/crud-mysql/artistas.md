@@ -20,12 +20,12 @@
 
 ```sql
 
-CREATE TABLE IF NOT EXISTS `Artistas` (
+CREATE TABLE IF NOT EXISTS `pruebas`.`Artistas` (
   `id` SMALLINT NOT NULL AUTO_INCREMENT , 
   `nombre` VARCHAR(100) NOT NULL , 
-  `descripcion` VARCHAR(500) NULL , 
+  `descripción` VARCHAR(500) NULL , 
   `fechaNacimiento` DATE NULL , 
   `lugarNacimiento` VARCHAR(50) NULL , 
+  `tours2023` VARCHAR(250) NULL , 
   `foto` VARCHAR(255) NULL , 
   PRIMARY KEY (`id`)) ENGINE = InnoDB;
-```
