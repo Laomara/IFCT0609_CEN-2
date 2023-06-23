@@ -5,7 +5,13 @@
 node_modules
 package-lock.json
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> a02490b2ee8fafd645816b982fb3df614becd1a1
 =======
 temp.sql
 >>>>>>> b636d8911152d80c3a55e9241caed77cbb4936ba
+=======
+temp.sql
+# Ignoramos .env
+.env
+>>>>>>> ef10fc66f5d3f538e7bc59d704718e973308fc82
