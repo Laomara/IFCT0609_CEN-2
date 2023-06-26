@@ -1,7 +1,7 @@
 {
   "name": "tutorial-express",
   "version": "1.0.0",
-  "description": "Tutorial de https://www.tutorialspoint.com/expressjs/expressjs_environment.html",
+  "description": "Tutorial de https://www.tutorialspoint.com/expressjs/expressjs_environment.htm",
   "main": "app.js",
   "scripts": {},
   "keywords": [
