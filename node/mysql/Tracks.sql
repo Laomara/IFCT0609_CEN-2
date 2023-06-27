@@ -24,4 +24,4 @@ INSERT INTO `tracks` (`id`, `name`, `albumId`, `formato`, `genero`, `filename`, 
 VALUES
     (NULL, 'Maria,maria', 1, 'mp3', 'Techno', 'Maria,maria.mp3', 2.41),
     (NULL, 'Destinazione mare', 2, 'mp3', 'Pop', 'Destinazione mare.mp3', 3.23),
-    (NULL, 'Delilah(Pull me out of this)', 3, 'mp3', 'Actual electro-pop life', 'Delilah.mp3', 4.11);
+    (NULL, 'Delilah(Pull me out of this)', 3, 'mp3', 'Actual electronic life', 'Delilah.mp3', 4.11);
