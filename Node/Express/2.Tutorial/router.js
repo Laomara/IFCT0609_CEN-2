@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const urlencode = require('urlencode'); // librería para codificar y decodificar URLs
 
-const bodyParser = require('bodyParser');
+const bodyParser = require('body-parser');
 //To parse URL encoded data
 router.use(bodyParser.urlencoded({extended: false}))
 //body -> JSON
