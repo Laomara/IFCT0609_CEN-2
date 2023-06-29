@@ -5,7 +5,7 @@
 </head>
 <body class="container">
 <header>
-  <%- include('../partials/header'); %>
+    <%- include('../partials/header', {primary: "primary", warning: "warning", success: "success"}); %>
 </header>
 
 <main>
@@ -13,7 +13,7 @@
 </main>
 
 <footer>
-  <%- include('../partials/footer'); %>
+    <%- include('../partials/footer', { texto: "Copyright 2023. Este es el texto para el footer desde index."});%>
 </footer>
 </body>
 </html>
