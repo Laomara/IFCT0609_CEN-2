@@ -11,6 +11,11 @@ router.use(bodyParser.urlencoded({ extended: false }))
 // body -> JSON
 router.use(bodyParser.json())
 
+// Para servir archivos estáticos
+// Nota: a diferencia del tutorial, nosotros usamos router en vez de app:
+router.use("/img", express.static('public'));
+// Las imágenes estarán disponibles en localhost:3000/img/<nombre_de_archivo.extension>
+
 const notas = [
   {id: 1, texto: "Nota 1", name: "Pepe"},
   {id: 2, texto: "Nota 3", name: "Pepe"},
@@ -120,7 +125,7 @@ router.post('/json/crear', function(req, res){
 //  ********* Formulario para editar un usuario *********
 router.get('/html/editar/:id(\\d+)', function(req, res){
   let ubicacion = 'forms/form-editar.html';
-  res.cookie("__id", req.params.id);
+  res.cookie("__id", req.params.id); // Guardamos el id para leerlo desde el HTML, de la misma forma, podemos guardar el nombre, email, etc.
   console.log(req.params)
   // Formulario para editar un usuario
   res.sendFile(path.join(__dirname, ubicacion))
@@ -141,11 +146,20 @@ router.put('/editar/:id(\\d+)', function(req, res){
 });
 // ********* Formulario para borrar un usuario *********
 router.get('/html/borrar/:id(\\d+)', function(req, res){
-  res.send("borrar usuario con id " + req.params.id);
+  let ubicacion = 'forms/form-borrar.html';
+  res.sendFile(path.join(__dirname, ubicacion))
 });
 router.delete('/json/borrar/:id(\\d+)', function(req, res){
-  // borrar -> splice(id, 1)
-  res.send("Borrar usuario con id " + req.params.id);
+  let id = req.params.id;
+  let idx = users.findIndex(user => user.id == id); // Si no encuentra el id, devuelve -1
+  if(idx == -1){
+    res.status(404); // 404 Not Found
+    let ubicacion = 'html/404.html';
+    res.sendFile(path.join(__dirname, ubicacion));
+  }else{
+    users.splice(idx, 1); // Borramos el usuario del array
+    res.send(`Usuario con id ${id} borrado`);
+  }
 });
 // *********************** Usuarios ***********************
 
@@ -164,6 +178,13 @@ router.get('/notas/:id(\\d+)', function(req, res){
 router.get('/notas/:id(\\d+)/:name', function(req, res){
   let nota = notas.find(nota => nota.id == req.params.id && nota.name == req.params.name);
   res.send(nota);
+});
+
+// *********************** Imágenes ***********************
+// Imágenes en carpeta 'public'
+router.get("/img", function(req, res){
+  let ubicacion = 'html/img.html';
+  res.sendFile(path.join(__dirname, ubicacion));
 });
 
 // Todas las demás rutas y métodos no implementados
