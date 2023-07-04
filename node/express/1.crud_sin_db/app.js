@@ -1,52 +1,51 @@
 // Importamos librería express
 const express = require("express");
-// Importamos librería body-parser
-const bodyParser = require('body-parser')
-// Importamos clase Nota
-const { Nota } = require("./nota");
-// Importamos las funciones desde functions.js
-const { getAll, getOne, createOne, updateOne, deleteOne } = require("./functions");
-
+//Importamos notas desde nota.js
+const notas = require("./nota");
+//Importamos modulo de funciones
+const f = require ('./functions')
 // Creamos una instancia de express llamada app
 const app = express();
+app.set('json spaces', 2) // Configuración para que los JSON aparezcan indentados
 
-// Importaciones para el body parser
-// Parse application/x-www-form-urlencoded -> para parsear los formularios
-app.use(bodyParser.urlencoded({ extended: false }))
-// parse application/json -> para parsear los JSON
-app.use(bodyParser.json())
-
-// Configuración para que los JSON aparezcan indentados
-app.set('json spaces', 2) 
+class Nota{
+  constructor(id, titulo, texto, prioridad, fecha){
+    this.id = id;
+    this.titulo = titulo;
+    this.texto = texto;
+    this.prioridad = prioridad;
+    this.fecha = fecha;
+  }
+}
+// Datos para los endpoints
+const notas = [
+  new Nota(1, "Comprar pan", "Comprar pan en el supermercado", "", "2023-06-23"),
+  new Nota(2, "Comprar leche", "Comprar leche en el supermercado", "normal", "2023-06-23"),
+  new Nota(3, "Comprar huevos", "Comprar huevos en el supermercado", "urgente", "2023-10-22"),
+];
 
 // GET de un array (lista)
 app.get("/notas", (req, res, next) => {
-  // Sembramos 3 datos en el array de notas
-  if(Nota.notas.length == 0) Nota.seed();
-  let notas = getAll(); // llamamos a la función getAll de functions para recibir el arr de notas
   res.json(notas);
-});
-// GET de un elemento
+ });
 app.get("/notas/:id", (req, res, next) => {
-  let nota = getOne(req.params.id); // pasamos el id a la función getOne de functions para recibir una nota
-  res.json(nota)
+  res.json({id: req.params.id})
 });
-// POST de un elemento
 app.post("/notas", (req, res, next) => {
-  let nota = req.body; // objeto de tipo Nota
-  let nuevaNota = createOne(nota);
-  res.json(nuevaNota)
+  res.json({"mensaje": "Nota añadida"})
 });
-// PUT de un elemento
 app.put("/notas/:id", (req, res, next) => {
-  let notaEditada = updateOne(req.params.id, req.body);
-  res.json(notaEditada)
+  res.json({"mensaje": "Nota modificada"})
 });
-// DELETE de un elemento
 app.delete("/notas/:id", (req, res, next) => {
-  let mensaje = deleteOne(req.params.id);
-  res.json(mensaje)
+  res.json({"mensaje": "Nota borrada"})
 });
+
+// TODO: creamos los endpoints para CRUD de un arr
+// GET de un elemento
+// POST de un elemento
+// PUT de un elemento
+// DELETE de un elemento
 
  // Aplicación que sale por el puerto 8080
 app.listen(8080, () => {
